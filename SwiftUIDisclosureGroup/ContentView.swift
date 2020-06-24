@@ -8,8 +8,28 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @State private var isToggleOne = false
+    @State private var isToggleTwo = false
+    @State private var isExpanded = false
+    
     var body: some View {
-        Text("Hello, world!").padding()
+        NavigationView {
+            List {
+                DisclosureGroup("Items", isExpanded: $isExpanded) {
+                    Toggle("One", isOn: $isToggleOne)
+                    Toggle("Two", isOn: $isToggleTwo)
+                }
+                
+                if isToggleOne {
+                    NavigationLink(
+                        destination: Text("Destination"),
+                        label: {
+                            Text("Navigate")
+                        })
+                }
+            }.listStyle(InsetGroupedListStyle())
+        }
     }
 }
 
